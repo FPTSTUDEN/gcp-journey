@@ -1,0 +1,6 @@
+# Local notes or raw exports that may contain private data
+.env
+.env.*
+secrets/
+private/
+*.token
