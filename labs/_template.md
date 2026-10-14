@@ -4,32 +4,29 @@ title: "Lab title"
 source_url: ""
 completed_on: ""
 record_status: draft # draft | reviewed
-# AI recommendations; edit freely. Omit fields that add no value.
+progress_status: not-verified # not-started | in-progress | partial | completed | not-verified
+evidence_summary: unverified # observed | reported | inferred | unverified
 tags:
-  topic:
-    - name: iam
-      rank: 1
-      note: "Introduced through a guided permission setup."
-  skill:
-    - name: access-control
-      rank: 2
-      note: "Configured permissions and checked the result."
-  service:
-    - name: cloud-iam
-      rank: 2
-  context:
-    - name: resource-permissions
-      rank: 2
+  topic: []
+  skill: []
+  service: []
+  context: []
 ---
 
 # Summary
-One or two sentences in your own words. Gemini can draft this from the lab description.
+One or two sentences in your own words.
+
+## Progress conclusion
+State what is supported by observed evidence, what is reported by the learner, and what remains unverified.
+
+## Evidence collected
+List concise evidence items and their source: command/output history, log, screenshot, generated file, test result, or user report. Redact secrets and sensitive values.
 
 ## Takeaway
-What seems useful or interesting? Optional; rough notes are fine.
+What seems useful or interesting? Optional.
 
-## Evidence or notes
-Optional: verification, command output, diagram path, a surprise, or what you actually tried. Distinguish observed results from assumptions.
+## Questions or gaps
+List only unresolved questions that could change the progress conclusion or ranking.
 
 ## My decision / correction
-Optional. Note anything you changed, rejected, or want to remember about the AI's classification or ranking.
+Note what you accepted, changed, or rejected from the AI recommendations.
