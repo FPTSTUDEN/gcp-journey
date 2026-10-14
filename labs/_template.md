@@ -1,46 +1,35 @@
 ---
-id: replace-with-stable-id
+id: short-stable-id
 title: "Lab title"
 source_url: ""
 completed_on: ""
-status: completed
-evidence_type: guided
+record_status: draft # draft | reviewed
+# AI recommendations; edit freely. Omit fields that add no value.
 tags:
   topic:
     - name: iam
       rank: 1
-      confidence: high
-      evidence: "Lab introduces principals and roles."
+      note: "Introduced through a guided permission setup."
   skill:
     - name: access-control
       rank: 2
-      confidence: high
-      evidence: "Configured a role binding and verified access."
+      note: "Configured permissions and checked the result."
   service:
     - name: cloud-iam
       rank: 2
-      confidence: high
-      evidence: "Used IAM controls directly."
   context:
     - name: resource-permissions
       rank: 2
-      confidence: medium
-      evidence: "Permissions were scoped to a resource."
 ---
 
 # Summary
-
-One or two sentences in your own words about what the lab accomplishes.
-
-## What I actually did
-- List only actions you performed or explicitly say this is based on the lab instructions.
-
-## Evidence
-- Verification, command output, diagram, screenshot path, or observed result.
-- Use `unverified` when no direct evidence was captured.
+One or two sentences in your own words. Gemini can draft this from the lab description.
 
 ## Takeaway
-- The most useful thing learned, or the relationship between components that became clearer.
+What seems useful or interesting? Optional; rough notes are fine.
 
-## Open question
-- Optional. One unresolved question worth investigating.
+## Evidence or notes
+Optional: verification, command output, diagram path, a surprise, or what you actually tried. Distinguish observed results from assumptions.
+
+## My decision / correction
+Optional. Note anything you changed, rejected, or want to remember about the AI's classification or ranking.
