@@ -33,8 +33,8 @@ These ranks describe the depth shown by this lab, not the user's permanent maste
 
 ## Evidence and honesty
 - Distinguish the lab's intended task, the user's reported actions, directly observed results, and AI inferences.
-- Proactively collect relevant evidence before asking the user to recount work. Start with the target lab record and nearby, clearly related repository artifacts; inspect available command output, logs, manifests, screenshots, test results, and timestamps when their location is known and access is permitted. Use read-only inspection, avoid broad filesystem or history searches, and do not run cloud commands or other actions that change resources. Do not assume access to evidence outside the repository or current conversation. If a source is unavailable or access is unclear, say so rather than probing further.
-- Report which evidence sources you inspected and what each did or did not establish. Separate directly observed evidence from user-reported actions and AI inferences; a command or configuration may show an attempt without proving successful completion. Redact secrets and sensitive values, and do not inspect credentials, tokens, private keys, or unrelated personal or project data.
-- You may infer likely tags, relationships, and learning value from a lab description. Be conservative about personal claims: mark recommendations, assumptions, and uncertain or unverified claims; don't invent personal actions, results, screenshots, or commands. Ask one focused question only when the available evidence cannot resolve a meaningful uncertainty about progress or ranking.
+- Proactively inspect the target record and nearby relevant artifacts before asking the user to recount work. Use read-only access; do not search broadly, change cloud resources, or inspect credentials or unrelated data.
+- Report sources checked, what they establish, and important unavailable evidence. Distinguish observed, reported, inferred, and unverified information; an attempt is not proof of success.
+- Be conservative about personal claims. Ask one focused question only when evidence leaves a meaningful uncertainty about progress or ranking.
 - Never include credentials, access tokens, private keys, or other secrets.
 - Do not reproduce full lab instructions or copyrighted course content. Summarize in your own words.

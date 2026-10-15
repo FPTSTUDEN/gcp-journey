@@ -6,13 +6,9 @@ description: Review a GCP lab record, collect available evidence, ask focused pr
 # Review a lab record
 
 1. Read `TAXONOMY.md`, `GEMINI.md`, and the target lab record.
-2. Proactively inspect the target record and nearby, clearly related repository artifacts before asking the user to recount their work. Inspect other relevant outputs, logs, manifests, screenshots, test results, or timestamps only when their location is known and access is permitted. Use read-only inspection; do not broadly search the filesystem or shell history, assume access outside the repository or current conversation, or run commands that change cloud resources. Do not access unrelated files, credentials, tokens, private keys, or sensitive project data.
-3. Report which evidence sources you inspected and what each establishes. Note important evidence sources that were unavailable; do not treat unavailable evidence as proof either way. Redact secrets and sensitive values.
-4. Separate evidence provenance: `observed` means directly inspected, `reported` means the user stated it, `inferred` means AI analysis, and `unverified` means not sufficiently supported. Evidence of an attempt does not by itself prove a successful result.
-5. Ask one focused question only when the evidence leaves a meaningful uncertainty about progress or ranking. Do not ask the learner to classify tags manually.
-6. Conclude progress explicitly as not-started, in-progress, partial, completed, or not-verified. Completion claims require supporting evidence; a lab description or course completion indicator alone is insufficient.
-7. Check whether tags communicate useful distinctions across topic, skill, service, and context. Do not insist that every group be populated.
-8. Be ambitious in analysis: identify meaningful concepts, relationships, likely learning value, and useful tag distinctions from the material.
-9. Recommend per-tag evidence ranks from 1–3. Do not assign applied or integrated ranks solely from instructions; base them on observed or reported work and label the basis.
-10. Make assumptions, recommendations, contradictions, and remaining gaps visible. The user owns final interpretations and can accept, edit, or reject them.
-11. Do not infer that the learner personally performed a task just because the lab describes it.
+2. Proactively inspect the target record and nearby relevant artifacts before asking the user to recount their work. Use read-only access; do not search broadly, change cloud resources, or inspect credentials or unrelated data.
+3. Report sources checked, what they establish, and important unavailable evidence. Distinguish observed, reported, inferred, and unverified information; an attempt is not proof of success.
+4. Ask one focused question only when evidence leaves a meaningful uncertainty about progress or ranking. Do not ask the learner to classify tags manually.
+5. Conclude progress explicitly as not-started, in-progress, partial, completed, or not-verified. Completion requires supporting evidence; a lab description or course indicator alone is insufficient.
+6. Recommend useful tags and per-tag ranks from 1–3 based on observed or reported work, not instructions alone.
+7. Make assumptions, contradictions, and remaining gaps visible; do not infer personal completion from the lab description.

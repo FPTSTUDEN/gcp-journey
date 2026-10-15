@@ -4,7 +4,7 @@ An AI-assisted catalog of Google Cloud Skills Boost labs. Gemini analyzes ambiti
 
 ## Workflow
 
-1. **During or after a lab:** use Gemini with [`prompts/capture-lab.md`](prompts/capture-lab.md). Give it the lab title/description and any observations you have. It should first inspect relevant repository evidence that is available and permitted, report what it checked, and ask only about meaningful remaining gaps. Evidence gathering is read-only and does not include broad searches, credentials, or cloud-side actions.
+1. **During or after a lab:** use Gemini with [`prompts/capture-lab.md`](prompts/capture-lab.md). Give it the lab details and observations; it will inspect relevant repository evidence first and ask only about meaningful gaps.
 2. **Capture:** save its draft in `labs/<short-id>.md`. You can keep it rough; not every section needs content.
 3. **Review lightly:** correct anything that feels wrong, especially meaningful tag or rank decisions. Set `record_status: reviewed` when you're happy with it. You do not need to manually verify every obvious suggestion.
 4. **Periodically:** ask Gemini CLI to find patterns, suggest taxonomy improvements, and refresh catalog views.
