@@ -4,3 +4,5 @@
 secrets/
 private/
 *.token
+
+.vscode/
