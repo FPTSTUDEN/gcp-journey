@@ -264,3 +264,108 @@ Reason: InvalidImageName
 Warning InspectFailed: Failed to apply default image tag "<todo>": couldn't parse image name "<todo>": invalid reference format
 Warning Failed: Error: InvalidImageName
 ```
+
+25. Queried the Logs Explorer equivalent filter with exactly one resource type and one severity:
+```powershell
+gcloud logging read 'resource.type="k8s_pod" AND severity=WARNING' --project qwiklabs-gcp-02-f7a5ce40a8a1 --freshness=1h --limit=10 --format="table(timestamp,resource.type,severity,jsonPayload.message,jsonPayload.reason)"
+```
+```text
+resource.type: k8s_pod
+severity: WARNING
+jsonPayload.message: Error: InvalidImageName
+jsonPayload.message: Failed to apply default image tag "<todo>": couldn't parse image name "<todo>": invalid reference format
+```
+
+26. Checked whether the requested log-based metric already existed:
+```powershell
+gcloud logging metrics describe pod-image-errors --project qwiklabs-gcp-02-f7a5ce40a8a1 --format="yaml(name,filter,metricDescriptor.metricKind,metricDescriptor.valueType,description)"
+```
+```text
+NOT_FOUND: Metric pod-image-errors does not exist.
+```
+
+27. Created the counter log-based metric using the validated Logs Explorer filter:
+```powershell
+gcloud logging metrics create pod-image-errors --project qwiklabs-gcp-02-f7a5ce40a8a1 --description="Count Kubernetes Pod warning logs for the invalid image manifest" --log-filter='resource.type="k8s_pod" AND severity=WARNING'
+```
+```text
+Created [pod-image-errors].
+```
+
+28. Verified the log metric:
+```powershell
+gcloud logging metrics describe pod-image-errors --project qwiklabs-gcp-02-f7a5ce40a8a1 --format="yaml(name,filter,metricDescriptor.metricKind,metricDescriptor.valueType,description)"
+```
+```yaml
+description: Count Kubernetes Pod warning logs for the invalid image manifest
+filter: resource.type="k8s_pod" AND severity=WARNING
+metricDescriptor:
+  metricKind: DELTA
+  valueType: INT64
+name: pod-image-errors
+```
+
+29. Created the `Pod Error Alert` policy with a 10-minute Count/Sum threshold, trigger count 1, threshold greater than 0, and no notification channels:
+```powershell
+gcloud monitoring policies create --project qwiklabs-gcp-02-f7a5ce40a8a1 --display-name="Pod Error Alert" --combiner=OR --condition-display-name="pod-image-errors above 0" --condition-filter='metric.type="logging.googleapis.com/user/pod-image-errors" AND resource.type="k8s_pod"' --aggregation='{"alignmentPeriod":"600s","perSeriesAligner":"ALIGN_COUNT","crossSeriesReducer":"REDUCE_SUM"}' --duration=0s --if="> 0" --trigger-count=1
+```
+```text
+Created alert policy [projects/qwiklabs-gcp-02-f7a5ce40a8a1/alertPolicies/3731794826841380567].
+```
+
+30. Verified the alert policy:
+```powershell
+gcloud monitoring policies describe 3731794826841380567 --project qwiklabs-gcp-02-f7a5ce40a8a1 --format=json
+```
+```text
+displayName: Pod Error Alert
+enabled: true
+notificationChannels: empty (the response omitted the field)
+conditionThreshold.filter: metric.type="logging.googleapis.com/user/pod-image-errors" AND resource.type="k8s_pod"
+conditionThreshold.aggregations[0].alignmentPeriod: 600s
+conditionThreshold.aggregations[0].perSeriesAligner: ALIGN_COUNT
+conditionThreshold.aggregations[0].crossSeriesReducer: REDUCE_SUM
+conditionThreshold.comparison: COMPARISON_GT
+conditionThreshold.duration: 0s
+conditionThreshold.trigger.count: 1
+```
+The create command set the threshold to `0` with `--if="> 0"`; the Monitoring API response omits the default-zero `thresholdValue` field.
+
+31. Replaced the image placeholder in `hello-app/manifests/helloweb-deployment.yaml`:
+```yaml
+image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+```
+
+32. Validated the updated manifest with a server-side dry run:
+```powershell
+kubectl apply --dry-run=server --namespace gmp-uf9w --filename labs\manage-kubernetes-in-google-cloud-challenge-lab\hello-app\manifests\helloweb-deployment.yaml
+```
+```text
+deployment.apps/helloweb configured (server dry run)
+```
+
+33. Deleted the existing failing Deployment:
+```powershell
+kubectl delete deployment helloweb --namespace gmp-uf9w
+```
+```text
+deployment.apps "helloweb" deleted from gmp-uf9w namespace
+```
+
+34. Created the updated Deployment:
+```powershell
+kubectl apply --namespace gmp-uf9w --filename labs\manage-kubernetes-in-google-cloud-challenge-lab\hello-app\manifests\helloweb-deployment.yaml
+```
+```text
+deployment.apps/helloweb created
+```
+
+35. Verified the rollout:
+```powershell
+kubectl rollout status deployment/helloweb --namespace gmp-uf9w --timeout=180s
+kubectl get deployment,pods --namespace gmp-uf9w -l app=hello,tier=web -o wide
+```
+```text
+deployment "helloweb" successfully rolled out
+pod/helloweb-7cf856d76c-pqvwk   1/1   Running   0 restarts
+```

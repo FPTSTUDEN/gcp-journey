@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: <todo>
+        image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
         ports:
         - containerPort: 8080
         resources:
