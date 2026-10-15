@@ -369,3 +369,15 @@ kubectl get deployment,pods --namespace gmp-uf9w -l app=hello,tier=web -o wide
 deployment "helloweb" successfully rolled out
 pod/helloweb-7cf856d76c-pqvwk   1/1   Running   0 restarts
 ```
+
+36. Updated `hello-app/main.go` to report version `2.0.0`.
+
+37. Compile-checked the Go application:
+```powershell
+Push-Location labs\manage-kubernetes-in-google-cloud-challenge-lab\hello-app
+go test main.go
+Pop-Location
+```
+```text
+?       command-line-arguments  [no test files]
+```
